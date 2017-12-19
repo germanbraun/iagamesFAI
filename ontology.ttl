@@ -1,0 +1,2147 @@
+@prefix : <http://www.meteck.org/files/ontologies/metamodelCDML.owl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.meteck.org/files/ontologies/metamodelCDML.owl> .
+
+<http://www.meteck.org/files/ontologies/metamodelCDML.owl> rdf:type owl:Ontology ;
+                                                            <http://purl.org/dc/elements/1.1/creator> "C. Maria Keet"^^xsd:string ;
+                                                            rdfs:comment """In the annotations for the entities, besides occasional comments, there is a list of terms as it is use in the covered conceptual data modelling languages, which is in the order of and format:
+UML v2.4.1
+EER
+ORM """@en ,
+                                                                         """This is the OWLized version of the unifying metamodel for the static, structural components of UML class diagrams, EER, and ORM2, and their constraints.
+
+The diagrammatic representation of the static structural components only, and their rationale, are described in the following two publications:
+
+Keet, C.M., Fillottrani, P.R. Toward an ontology-driven unifying metamodel for UML Class Diagrams, EER, and ORM2. 32nd International Conference on Conceptual Modeling (ER'13). W. Ng, V.C. Storey, and J. Trujillo (Eds.). Springer LNCS 8217, 313-326. 11-13 November, 2013, Hong Kong.
+
+Keet, C.M., Fillottrani, P.R. Structural entities of an ontology-driven unifying metamodel for UML, EER, and ORM2. 3rd International Conference on Model & Data Engineering (MEDI'13). A. Cuzzocrea and S. Maabout (Eds.) September 25-27, 2013, Amantea, Calabria, Italy. Springer LNCS 8216, 188-199.
+
+A paper describing the full metamodel, including the constraints, is currently under review with an international journal"""@en ;
+                                                            owl:versionInfo "version 1.2, December 2014."@en .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#aggregatesInto
+:aggregatesInto rdf:type owl:ObjectProperty .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ap1
+:ap1 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdfs:domain :AttributiveProperty ;
+     rdfs:range :CardRR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ap3
+:ap3 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdfs:domain :AttributiveProperty ;
+     rdfs:range :CardOR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#att3
+:att3 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :Attribute ;
+      rdfs:range :ConstrainingValuesAR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#avc4
+:avc4 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :AttributeValueConstraint ;
+      rdfs:range :ConstrainingValuesAR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#cc1
+:cc1 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdf:type owl:FunctionalProperty ;
+     rdfs:domain :CardinalityConstraint ;
+     rdfs:range :CardOR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#cc2
+:cc2 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdf:type owl:FunctionalProperty ;
+     rdfs:domain :CardinalityConstraint ;
+     rdfs:range :CardRR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#comparisonOperator
+:comparisonOperator rdf:type owl:ObjectProperty ;
+                    rdfs:domain :ValueComparisonConstraint ;
+                    rdfs:range :Comparison ;
+                    rdfs:comment "for value comparisons"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#contains
+:contains rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasPart .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#declaredAs
+:declaredAs rdf:type owl:ObjectProperty .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#declaredOn
+:declaredOn rdf:type owl:ObjectProperty ;
+            rdfs:range [ rdf:type owl:Class ;
+                         owl:unionOf ( :AttributiveProperty
+                                       :CompletenessConstraint
+                                       :DisjointObjectTypes
+                                       :DisjointRelationships
+                                       :DisjointRoles
+                                       :EntityType
+                                       :ObjectType
+                                       :QualifiedRelationship
+                                       :Relationship
+                                       :Role
+                                       :ValueProperty
+                                     )
+                       ] ;
+            rdfs:comment "There is also a 'constrained with' in the metamodel that can be seen to be the inverse of declaredOn. We now use the inverse(declaredOn) for that to reduce a bit the number of object properties and gain some in reasoner performance."@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#dim1
+:dim1 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :Dimension ;
+      rdfs:range :DimensionalAttributionR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#dim2
+:dim2 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :Dimension ;
+      rdfs:range :DimensionalValueTypingR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#domain
+:domain rdf:type owl:ObjectProperty ;
+        rdfs:domain [ rdf:type owl:Class ;
+                      owl:unionOf ( :AttributiveProperty
+                                    :ValueProperty
+                                  )
+                    ] ;
+        rdfs:range [ rdf:type owl:Class ;
+                     owl:unionOf ( :ObjectType
+                                   :Relationship
+                                   :ValueType
+                                 )
+                   ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#dt1
+:dt1 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdfs:domain :DataType ;
+     rdfs:range :DimensionalValueTypingR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#dt2
+:dt2 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdfs:domain :DataType ;
+     rdfs:range :DimensionalAttributionR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#dvt3
+:dvt3 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :DimensionalValueType ;
+      rdfs:range :DimensionalValueTypingR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#efc4
+:efc4 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :CompoundCardinalityConstraint ;
+      rdfs:range :CompoundCardinalityR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#eu3
+:eu3 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdfs:domain :ExternalUniqueness ;
+     rdfs:range :ExtUniqueR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#first
+:first rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :participant ;
+       rdfs:domain [ rdf:type owl:Class ;
+                     owl:unionOf ( :RelationshipConstraint
+                                   :ValueComparisonConstraint
+                                 )
+                   ] ;
+       rdfs:range :Role .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#hasPart
+:hasPart rdf:type owl:ObjectProperty .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#hasStrong
+:hasStrong rdf:type owl:ObjectProperty ;
+           rdfs:domain :WeakObjectType ;
+           rdfs:range :ObjectType ;
+           rdfs:comment "Not very imaginative name, but it is for asserting that each wak object type must be related to a normal ('strong') one"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#hasType
+:hasType rdf:type owl:ObjectProperty ;
+         rdfs:domain [ rdf:type owl:Class ;
+                       owl:unionOf ( :ValueComparisonConstraint
+                                     :ValueRange
+                                   )
+                     ] ;
+         rdfs:range :DataType .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#identifies
+:identifies rdf:type owl:ObjectProperty ;
+            rdfs:comment "Same story as with the declaredOn: also here one could choose to keep either identifies and identifiedBy. We chose the identifies, and avail of the other direciion by using inverse"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#jo3
+:jo3 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdfs:domain :JoinConstraint ;
+     rdfs:range :JoiningR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#linkedTo2
+:linkedTo2 rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :naryProperty ;
+           rdfs:domain :Role ;
+           rdfs:range :RolePlayingR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#naryProperty
+:naryProperty rdf:type owl:ObjectProperty ;
+              rdfs:comment "The object subproperties of naryProperty are only here due to reifying ternaries and quaternary. Thus, they are NOT to be used for any other axiom than for said reification."@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#objectifies
+:objectifies rdf:type owl:ObjectProperty .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#of3
+:of3 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdf:type owl:FunctionalProperty ;
+     rdfs:domain :CardinalityConstraint ;
+     rdfs:range :RolePlayingR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ot2
+:ot2 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdfs:domain :ObjectType ;
+     rdfs:range :CardOR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ot3
+:ot3 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdfs:domain :ObjectType ;
+     rdfs:range :DimensionalAttributionR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#partOf
+:partOf rdf:type owl:ObjectProperty ,
+                 owl:TransitiveProperty .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#partPlayer
+:partPlayer rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :participant ;
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( :CompositeAggregate
+                                        :Part
+                                        :SharedAggregate
+                                      )
+                        ] ;
+            rdfs:range [ rdf:type owl:Class ;
+                         owl:unionOf ( :AttributiveProperty
+                                       :DataType
+                                       :ObjectType
+                                     )
+                       ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#partiallyIdentifies
+:partiallyIdentifies rdf:type owl:ObjectProperty .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#participant
+:participant rdf:type owl:ObjectProperty ;
+             rdfs:domain :Entity ;
+             rdfs:range :Entity ;
+             rdfs:comment "The metamodel also has participatesIn, which is replaced by inverse(participant); like with identifies and declaredOn"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#plays1
+:plays1 rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :naryProperty ;
+        rdfs:domain :EntityType ;
+        rdfs:range :RolePlayingR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#playsSub
+:playsSub rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :participant ;
+          rdfs:domain :Subsumption ;
+          rdfs:range :Entity .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#playsSuper
+:playsSuper rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :participant ;
+            rdfs:domain :Subsumption ;
+            rdfs:range :Entity .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#propertPartOf
+:propertPartOf rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :partOf ;
+               rdf:type owl:TransitiveProperty .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#range
+:range rdf:type owl:ObjectProperty ;
+       rdfs:domain :AttributiveProperty ;
+       rdfs:range :DataType .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#reifiedAs
+:reifiedAs rdf:type owl:ObjectProperty .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#rel1
+:rel1 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :Relationship ;
+      rdfs:range :ExtUniqueR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#rel2
+:rel2 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :Relationship ;
+      rdfs:range :CompoundCardinalityR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#rel3
+:rel3 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :Relationship ;
+      rdfs:range :CardRR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#rel4
+:rel4 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :Relationship ;
+      rdfs:range :DimensionalAttributionR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#relj1
+:relj1 rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :naryProperty ;
+       rdfs:domain :Relationship ;
+       rdfs:range :JoiningR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#rol1
+:rol1 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :Role ;
+      rdfs:range :ConstrainingValuesRR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#role1
+:role1 rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :naryProperty ;
+       rdfs:domain :Role ;
+       rdfs:range :CompoundCardinalityR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#role2
+:role2 rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :naryProperty ;
+       rdfs:domain :Role ;
+       rdfs:range :ExtUniqueR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#rolj2
+:rolj2 rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :naryProperty ;
+       rdfs:domain :Role ;
+       rdfs:range :JoiningR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#rvc4
+:rvc4 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :RoleValueConstraint ;
+      rdfs:range :ConstrainingValuesRR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#second
+:second rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :participant ;
+        rdfs:domain [ rdf:type owl:Class ;
+                      owl:unionOf ( :RelationshipConstraint
+                                    :ValueComparisonConstraint
+                                  )
+                    ] ;
+        rdfs:range :Role .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ve1
+:ve1 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdf:type owl:FunctionalProperty ;
+     rdfs:domain :ValueEnumeration ;
+     rdfs:range :ConstrainingValuesVR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ve2
+:ve2 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdf:type owl:FunctionalProperty ;
+     rdfs:domain :ValueEnumeration ;
+     rdfs:range :ConstrainingValuesAR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ve3
+:ve3 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdf:type owl:FunctionalProperty ;
+     rdfs:domain :ValueEnumeration ;
+     rdfs:range :ConstrainingValuesRR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#vp2
+:vp2 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdfs:domain :ValueProperty ;
+     rdfs:range :ConstrainingValuesVR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#vr1
+:vr1 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdf:type owl:FunctionalProperty ;
+     rdfs:domain :ValueRange ;
+     rdfs:range :ConstrainingValuesAR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#vr2
+:vr2 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdf:type owl:FunctionalProperty ;
+     rdfs:domain :ValueRange ;
+     rdfs:range :ConstrainingValuesRR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#vr3
+:vr3 rdf:type owl:ObjectProperty ;
+     rdfs:subPropertyOf :naryProperty ;
+     rdf:type owl:FunctionalProperty ;
+     rdfs:domain :ValueRange ;
+     rdfs:range :ConstrainingValuesVR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#vtc4
+:vtc4 rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf :naryProperty ;
+      rdfs:domain :ValueTypeConstraint ;
+      rdfs:range :ConstrainingValuesVR .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#wholePlayer
+:wholePlayer rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :participant ;
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( :CompositeAggregate
+                                         :Part
+                                         :SharedAggregate
+                                       )
+                         ] ;
+             rdfs:range [ rdf:type owl:Class ;
+                          owl:unionOf ( :AttributiveProperty
+                                        :DataType
+                                        :ObjectType
+                                      )
+                        ] .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#hasCValue
+:hasCValue rdf:type owl:DatatypeProperty ;
+           rdfs:domain [ rdf:type owl:Class ;
+                         owl:unionOf ( :MaximumCardinality
+                                       :MinimumCardinality
+                                     )
+                       ] ;
+           rdfs:range xsd:integer ;
+           rdfs:comment "Intrduced as artefact from formalising in OWL ('flattened' last part of values in cardinality constraints)"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#hasValue
+:hasValue rdf:type owl:DatatypeProperty ;
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( :MaximumValue
+                                      :MinimumValue
+                                    )
+                      ] ;
+          rdfs:range rdfs:Literal ;
+          rdfs:comment "Intrduced as artefact from formalising in OWL ('flattened' last part of values in value constraints)"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Abstract
+:Abstract rdf:type owl:Class ;
+          rdfs:comment "This class is used to group several otherwhise 'orphan' classes (subsumed only by Thing), for they have in common they deal with abstract things (numbers, values, value ranges)"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Antisymmetry
+:Antisymmetry rdf:type owl:Class ;
+              rdfs:subClassOf :RelationshipConstraint .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#AssociativeEntityType
+:AssociativeEntityType rdf:type owl:Class ;
+                       rdfs:subClassOf :ObjectType ;
+                       rdfs:comment "relic from the past, but available, so included"^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Asymmetry
+:Asymmetry rdf:type owl:Class ;
+           rdfs:subClassOf :Antisymmetry ,
+                           :Irreflexivity .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Attribute
+:Attribute rdf:type owl:Class ;
+           rdfs:subClassOf :AttributiveProperty ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :declaredAs ;
+                             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :SingleIdentification
+                           ] ;
+           rdfs:comment """attribute  
+attribute, but without including a data type in the diagram
+absent (represented differently)"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#AttributeValueConstraint
+:AttributeValueConstraint rdf:type owl:Class ;
+                          owl:equivalentClass :ConstrainingValuesAR ;
+                          rdfs:subClassOf :ValueConstraint ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty :avc4 ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :ConstrainingValuesAR
+                                          ] ;
+                          owl:disjointWith :RoleValueConstraint ,
+                                           :ValueTypeConstraint ;
+                          rdfs:comment """attribute value constraint
+absent
+absent"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#AttributiveProperty
+:AttributiveProperty rdf:type owl:Class ;
+                     rdfs:subClassOf :Relationship ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :domain ;
+                                       owl:someValuesFrom [ rdf:type owl:Class ;
+                                                            owl:unionOf ( :ObjectType
+                                                                          :Relationship
+                                                                        )
+                                                          ]
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :range ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :DataType
+                                     ] ;
+                     owl:disjointUnionOf ( :Attribute
+                                           :CompositeAttribute
+                                           :DimensionalAttribute
+                                         ) ;
+                     rdfs:comment "Generalization of the various types of attributes"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#AttributivePropertyCardinality
+:AttributivePropertyCardinality rdf:type owl:Class ;
+                                rdfs:subClassOf :CardinalityConstraint ;
+                                owl:disjointWith :ObjectTypeCardinality ;
+                                rdfs:comment """Attributive property cardinality constraint in our MM, in the others:
+multiplicity on attribute
+cardinality on attribute
+absent (add cardinality to the fact type with a lexical object type)"""^^xsd:string ,
+                                             "for attributes for both relationships and for attributes of object types"^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#CardOR
+:CardOR rdf:type owl:Class ;
+        rdfs:subClassOf :AttributivePropertyCardinality ,
+                        :ReifiedNAry ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty [ owl:inverseOf :ap3
+                                         ] ;
+                          owl:someValuesFrom :AttributiveProperty
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty [ owl:inverseOf :cc1
+                                         ] ;
+                          owl:someValuesFrom :CardinalityConstraint
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty [ owl:inverseOf :ot2
+                                         ] ;
+                          owl:someValuesFrom :ObjectType
+                        ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#CardRR
+:CardRR rdf:type owl:Class ;
+        rdfs:subClassOf :AttributivePropertyCardinality ,
+                        :ReifiedNAry ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty [ owl:inverseOf :ap1
+                                         ] ;
+                          owl:someValuesFrom :AttributiveProperty
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty [ owl:inverseOf :cc2
+                                         ] ;
+                          owl:someValuesFrom :CardinalityConstraint
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty [ owl:inverseOf :rel3
+                                         ] ;
+                          owl:someValuesFrom :Relationship
+                        ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#CardinalityConstraint
+:CardinalityConstraint rdf:type owl:Class ;
+                       rdfs:subClassOf :Constraint ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :hasPart ;
+                                         owl:someValuesFrom [ rdf:type owl:Class ;
+                                                              owl:unionOf ( :MaximumCardinality
+                                                                            :MinimumCardinality
+                                                                          )
+                                                            ]
+                                       ] ;
+                       owl:disjointUnionOf ( :AttributivePropertyCardinality
+                                             :CompoundCardinalityConstraint
+                                             :ObjectTypeCardinality
+                                           ) ;
+                       rdfs:comment "For cardinality on attributes, object types, and complex ones (ORM's frequency constraints over >1 role)"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Comparison
+:Comparison rdf:type owl:Class ;
+            rdfs:subClassOf :Abstract ;
+            owl:disjointUnionOf ( :EqualOrGreaterThan
+                                  :EqualOrLesserThan
+                                  :EqualTo
+                                  :GreaterThan
+                                  :LesserThan
+                                  :NotEqual
+                                ) ;
+            rdfs:comment "These are the comparison operators for the value comparison constraint"^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#CompletenessConstraint
+:CompletenessConstraint rdf:type owl:Class ;
+                        rdfs:subClassOf :Constraint ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :participant ;
+                                          owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :ObjectType
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :declaredOn ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :Subsumption
+                                        ] ;
+                        rdfs:comment """complete 
+total
+total (exhaustive) covering subtypes
+Note: they are declared among subtypes on the subsumption relation, not between any object types"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#CompositeAggregate
+:CompositeAggregate rdf:type owl:Class ;
+                    rdfs:subClassOf :SharedAggregate ,
+                                    [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :partPlayer ;
+                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                             owl:onClass :ObjectType
+                                                           ]
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :wholePlayer ;
+                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                             owl:onClass :ObjectType
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty [ owl:inverseOf :partPlayer
+                                                     ] ;
+                                      owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :EntityType
+                                    ] ;
+                    rdfs:comment "Same representation issues as noted for PartWhole, but then for CompositeAggregate"^^xsd:string ,
+                                 """composite aggregation 
+absent 
+absent """^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#CompositeAttribute
+:CompositeAttribute rdf:type owl:Class ;
+                    rdfs:subClassOf :AttributiveProperty ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty [ owl:inverseOf :wholePlayer
+                                                     ] ;
+                                      owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :Part
+                                    ] ;
+                    rdfs:comment """more general: a property can be a composite of another property (and an attribute is a property)
+composite attribute
+implicitly present by adding new roles"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#CompoundCardinalityConstraint
+:CompoundCardinalityConstraint rdf:type owl:Class ;
+                               owl:equivalentClass :CompoundCardinalityR ;
+                               rdfs:subClassOf :CardinalityConstraint ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :efc4 ;
+                                                 owl:someValuesFrom :CompoundCardinalityR
+                                               ] ;
+                               rdfs:comment """CompoundCardinalityConstraint (involving > 1 role) in our MM, respectively:
+absent
+absent
+frequency constraints in one fact type over more than one role	"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#CompoundCardinalityR
+:CompoundCardinalityR rdf:type owl:Class ;
+                      rdfs:subClassOf :ReifiedNAry ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf :efc4
+                                                       ] ;
+                                        owl:someValuesFrom :CompoundCardinalityConstraint
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf :rel2
+                                                       ] ;
+                                        owl:someValuesFrom :Relationship
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf :role1
+                                                       ] ;
+                                        owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :Role
+                                      ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ConstrainingValuesAR
+:ConstrainingValuesAR rdf:type owl:Class ;
+                      rdfs:subClassOf :ReifiedNAry ,
+                                      [ owl:intersectionOf ( [ rdf:type owl:Class ;
+                                                               owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty [ owl:inverseOf :avc4
+                                                                                              ] ;
+                                                                               owl:someValuesFrom :AttributeValueConstraint
+                                                                             ]
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty [ owl:inverseOf :ve2
+                                                                                              ] ;
+                                                                               owl:someValuesFrom :ValueEnumeration
+                                                                             ]
+                                                                           )
+                                                             ]
+                                                             [ rdf:type owl:Class ;
+                                                               owl:complementOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                         owl:onProperty [ owl:inverseOf :avc4
+                                                                                                                        ] ;
+                                                                                                         owl:someValuesFrom :AttributeValueConstraint
+                                                                                                       ]
+                                                                                                       [ rdf:type owl:Restriction ;
+                                                                                                         owl:onProperty [ owl:inverseOf :ve2
+                                                                                                                        ] ;
+                                                                                                         owl:someValuesFrom :ValueEnumeration
+                                                                                                       ]
+                                                                                                     ) ;
+                                                                                  rdf:type owl:Class
+                                                                                ]
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf :vr1
+                                                       ] ;
+                                        owl:someValuesFrom :ValueRange
+                                      ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ConstrainingValuesRR
+:ConstrainingValuesRR rdf:type owl:Class ;
+                      owl:equivalentClass :RoleValueConstraint ;
+                      rdfs:subClassOf :ReifiedNAry ,
+                                      [ owl:intersectionOf ( [ rdf:type owl:Class ;
+                                                               owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty [ owl:inverseOf :ve3
+                                                                                              ] ;
+                                                                               owl:someValuesFrom :ValueEnumeration
+                                                                             ]
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty [ owl:inverseOf :vr2
+                                                                                              ] ;
+                                                                               owl:someValuesFrom :ValueRange
+                                                                             ]
+                                                                           )
+                                                             ]
+                                                             [ rdf:type owl:Class ;
+                                                               owl:complementOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                         owl:onProperty [ owl:inverseOf :ve3
+                                                                                                                        ] ;
+                                                                                                         owl:someValuesFrom :ValueEnumeration
+                                                                                                       ]
+                                                                                                       [ rdf:type owl:Restriction ;
+                                                                                                         owl:onProperty [ owl:inverseOf :vr2
+                                                                                                                        ] ;
+                                                                                                         owl:someValuesFrom :ValueRange
+                                                                                                       ]
+                                                                                                     ) ;
+                                                                                  rdf:type owl:Class
+                                                                                ]
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf :rol1
+                                                       ] ;
+                                        owl:someValuesFrom :Role
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf :rvc4
+                                                       ] ;
+                                        owl:someValuesFrom :RoleValueConstraint
+                                      ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ConstrainingValuesVR
+:ConstrainingValuesVR rdf:type owl:Class ;
+                      owl:equivalentClass :ValueTypeConstraint ;
+                      rdfs:subClassOf :ReifiedNAry ,
+                                      [ owl:intersectionOf ( [ rdf:type owl:Class ;
+                                                               owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty [ owl:inverseOf :ve1
+                                                                                              ] ;
+                                                                               owl:someValuesFrom :ValueEnumeration
+                                                                             ]
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty [ owl:inverseOf :vr3
+                                                                                              ] ;
+                                                                               owl:someValuesFrom :ValueRange
+                                                                             ]
+                                                                           )
+                                                             ]
+                                                             [ rdf:type owl:Class ;
+                                                               owl:complementOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                         owl:onProperty [ owl:inverseOf :ve1
+                                                                                                                        ] ;
+                                                                                                         owl:someValuesFrom :ValueEnumeration
+                                                                                                       ]
+                                                                                                       [ rdf:type owl:Restriction ;
+                                                                                                         owl:onProperty [ owl:inverseOf :vr3
+                                                                                                                        ] ;
+                                                                                                         owl:someValuesFrom :ValueRange
+                                                                                                       ]
+                                                                                                     ) ;
+                                                                                  rdf:type owl:Class
+                                                                                ]
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf :vp2
+                                                       ] ;
+                                        owl:someValuesFrom :ValueProperty
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf :vtc4
+                                                       ] ;
+                                        owl:someValuesFrom :ValueTypeConstraint
+                                      ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Constraint
+:Constraint rdf:type owl:Class ;
+            rdfs:subClassOf :Entity .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DataType
+:DataType rdf:type owl:Class ;
+          rdfs:subClassOf :EntityType ;
+          rdfs:comment """Data type; LiteralSpecification 
+absent 
+data type		 """^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Dimension
+:Dimension rdf:type owl:Class ;
+           rdfs:subClassOf :Abstract ;
+           rdfs:comment "for the dimensional attributes and value types, such as the kg, km, km/h etc."^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DimensionalAttribute
+:DimensionalAttribute rdf:type owl:Class ;
+                      owl:equivalentClass :DimensionalAttributionR ;
+                      rdfs:subClassOf :AttributiveProperty ;
+                      rdfs:comment """absent (no recording of dimension)
+absent 
+absent (represented differently)"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DimensionalAttributionR
+:DimensionalAttributionR rdf:type owl:Class ;
+                         rdfs:subClassOf :ReifiedNAry ,
+                                         [ rdf:type owl:Class ;
+                                           owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                           owl:onProperty [ owl:inverseOf :ot3
+                                                                          ] ;
+                                                           owl:someValuesFrom :ObjectType
+                                                         ]
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty [ owl:inverseOf :rel4
+                                                                          ] ;
+                                                           owl:someValuesFrom :Relationship
+                                                         ]
+                                                       )
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty [ owl:inverseOf :dim1
+                                                          ] ;
+                                           owl:someValuesFrom :Dimension
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty [ owl:inverseOf :dt2
+                                                          ] ;
+                                           owl:someValuesFrom :DataType
+                                         ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DimensionalValueType
+:DimensionalValueType rdf:type owl:Class ;
+                      owl:equivalentClass :DimensionalValueTypingR ;
+                      rdfs:subClassOf :ValueProperty ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :dvt3 ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :DimensionalValueTypingR
+                                      ] ;
+                      rdfs:comment """absent
+absent
+lexical object type / value type, with dimension"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DimensionalValueTypingR
+:DimensionalValueTypingR rdf:type owl:Class ;
+                         rdfs:subClassOf :ReifiedNAry ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty [ owl:inverseOf :dim2
+                                                          ] ;
+                                           owl:someValuesFrom :Dimension
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty [ owl:inverseOf :dt1
+                                                          ] ;
+                                           owl:someValuesFrom :DataType
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty [ owl:inverseOf :dvt3
+                                                          ] ;
+                                           owl:someValuesFrom :DimensionalValueType
+                                         ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DisjointObjectTypes
+:DisjointObjectTypes rdf:type owl:Class ;
+                     rdfs:subClassOf :DisjointnessConstraint ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :participant ;
+                                       owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :ObjectType
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :declaredOn ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :Subsumption
+                                     ] ;
+                     rdfs:comment """disjoint 
+disjoint 
+exclusive subtypes
+Note: they are declared among subtypes on the subsumption relation, not between any object types"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DisjointRelationships
+:DisjointRelationships rdf:type owl:Class ;
+                       rdfs:subClassOf :DisjointnessConstraint ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :declaredOn ;
+                                         owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :Relationship
+                                       ] ;
+                       rdfs:comment """absent 
+absent 
+exclusion (on fact types)"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DisjointRoles
+:DisjointRoles rdf:type owl:Class ;
+               rdfs:subClassOf :DisjointnessConstraint ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :declaredOn ;
+                                 owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :Role
+                               ] ;
+               rdfs:comment """\\{xor\\} 
+XOR 
+exclusion (on roles)
+Note: here it is declared on the roles, not via the subsumption relation, as with object types"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DisjointnessConstraint
+:DisjointnessConstraint rdf:type owl:Class ;
+                        rdfs:subClassOf :Constraint ;
+                        owl:disjointUnionOf ( :DisjointObjectTypes
+                                              :DisjointRelationships
+                                              :DisjointRoles
+                                            ) ;
+                        rdfs:comment "To group disjoint Object types, relationships, and roles"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#DisjunctiveMandatory
+:DisjunctiveMandatory rdf:type owl:Class ;
+                      rdfs:subClassOf :MandatoryConstraint ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :declaredOn ;
+                                        owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :Role
+                                      ] ;
+                      rdfs:comment """implicitly present (e.g., as an \\{or\\}, see pp58-59 of \\cite{UMLspec12})
+absent 
+disjunctive mandatory/inclusive-or on roles"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Entity
+:Entity rdf:type owl:Class ;
+        owl:disjointUnionOf ( :Constraint
+                              :EntityType
+                              :Relationship
+                              :Role
+                            ) .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#EntityType
+:EntityType rdf:type owl:Class ;
+            rdfs:subClassOf :Entity ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf :wholePlayer
+                                             ] ;
+                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :CompositeAggregate
+                            ] ;
+            owl:disjointUnionOf ( :DataType
+                                  :ObjectType
+                                  :Qualifier
+                                  :ValueProperty
+                                ) ;
+            rdfs:comment """classifier  
+absent  
+object type"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#EqualOrGreaterThan
+:EqualOrGreaterThan rdf:type owl:Class ;
+                    rdfs:subClassOf :Comparison .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#EqualOrLesserThan
+:EqualOrLesserThan rdf:type owl:Class ;
+                   rdfs:subClassOf :Comparison .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#EqualTo
+:EqualTo rdf:type owl:Class ;
+         rdfs:subClassOf :Comparison .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#EqualityConstraint
+:EqualityConstraint rdf:type owl:Class ;
+                    rdfs:subClassOf :Constraint .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ExtUniqueR
+:ExtUniqueR rdf:type owl:Class ;
+            owl:equivalentClass :ExternalUniqueness ;
+            rdfs:subClassOf :ReifiedNAry ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf :eu3
+                                             ] ;
+                              owl:someValuesFrom :ExternalUniqueness
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf :rel1
+                                             ] ;
+                              owl:someValuesFrom :Relationship
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf :role2
+                                             ] ;
+                              owl:someValuesFrom :Role
+                            ] ;
+            rdfs:comment """The following constraints are not represented in the OWL:
+'The cardinality of Relationship and Role in ext unique is equal.'
+and 
+'The Roles on which an External uniqueness is declared on are contained in the
+         Relationships that participate in the ext unique.' """^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ExternalIdentification
+:ExternalIdentification rdf:type owl:Class ;
+                        rdfs:subClassOf :IdentificationConstraint ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :declaredOn ;
+                                          owl:someValuesFrom :Relationship
+                                        ] ;
+                        owl:disjointWith :InternalIdentification ;
+                        rdfs:comment """an (extended) alt key mechanism \\cite{UMLODM09}; see also a refinement in \\cite{Keet11keys} 
+needed for weak entity type 
+compound reference scheme"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ExternalUniqueness
+:ExternalUniqueness rdf:type owl:Class ;
+                    rdfs:subClassOf :UniquenessConstraint ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :eu3 ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :ExtUniqueR
+                                    ] ;
+                    owl:disjointWith :InternalUniqueness ;
+                    rdfs:comment """exists in part, with the qualified association 
+exists in part, where the participants are all attributes
+external uniqueness constraint"""^^xsd:string ,
+                                 "see annotation ExtUniqueR"^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#GlobalReflexivity
+:GlobalReflexivity rdf:type owl:Class ;
+                   rdfs:subClassOf :LocalReflexivity .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#GreaterThan
+:GreaterThan rdf:type owl:Class ;
+             rdfs:subClassOf :Comparison .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#IdentificationConstraint
+:IdentificationConstraint rdf:type owl:Class ;
+                          rdfs:subClassOf :Constraint ,
+                                          [ owl:intersectionOf ( [ rdf:type owl:Class ;
+                                                                   owl:complementOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                             owl:onProperty :declaredOn ;
+                                                                                                             owl:someValuesFrom :AttributiveProperty
+                                                                                                           ]
+                                                                                                           [ rdf:type owl:Restriction ;
+                                                                                                             owl:onProperty :declaredOn ;
+                                                                                                             owl:someValuesFrom :ValueProperty
+                                                                                                           ]
+                                                                                                         ) ;
+                                                                                      rdf:type owl:Class
+                                                                                    ]
+                                                                 ]
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty :declaredOn ;
+                                                                   owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                                        owl:unionOf ( :AttributiveProperty
+                                                                                                      :ValueProperty
+                                                                                                    )
+                                                                                      ]
+                                                                 ]
+                                                               ) ;
+                                            rdf:type owl:Class
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty :identifies ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :ObjectType
+                                          ] ;
+                          owl:disjointUnionOf ( :ExternalIdentification
+                                                :InternalIdentification
+                                              ) ;
+                          rdfs:comment "Partial representation for the various identifiers"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#InclusiveMandatory
+:InclusiveMandatory rdf:type owl:Class ;
+                    rdfs:subClassOf :DisjunctiveMandatory ;
+                    rdfs:comment """implicitly present (e.g., as an \\{and\\}, see pp58-59 of \\cite{UMLspec12})
+AND for relationships
+absent"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#InternalIdentification
+:InternalIdentification rdf:type owl:Class ;
+                        rdfs:subClassOf :IdentificationConstraint ;
+                        rdfs:comment """alt key mechanism, for one class 
+compound identifier, for attributes within entity type 
+absent"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#InternalUniqueness
+:InternalUniqueness rdf:type owl:Class ;
+                    rdfs:subClassOf :UniquenessConstraint ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :declaredOn ;
+                                      owl:someValuesFrom :Role
+                                    ] ;
+                    rdfs:comment """absent
+exists in part, where the participants are all attributes (see also EER's compound identifier) 
+internal uniqueness constraint"""^^xsd:string ,
+                                 """not represented:
+'The cardinality of Internal uniqueness being declared on at least one Role 
+         has a maximum cardinality less than or equal the number of Roles in 
+         the Relationship that contains those Roles.'"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Intransitivity
+:Intransitivity rdf:type owl:Class ;
+                rdfs:subClassOf :Irreflexivity .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Irreflexivity
+:Irreflexivity rdf:type owl:Class ;
+               rdfs:subClassOf :RelationshipConstraint .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#JoinConstraint
+:JoinConstraint rdf:type owl:Class ;
+                rdfs:subClassOf :Constraint ,
+                                [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :participant ;
+                                                         owl:minQualifiedCardinality "3"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :Relationship
+                                                       ]
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :participant ;
+                                                         owl:maxQualifiedCardinality "4"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :Relationship
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :jo3 ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :JoiningR
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :participant ;
+                                  owl:qualifiedCardinality "4"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :Role
+                                ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#JoinDisjointnessConstraint
+:JoinDisjointnessConstraint rdf:type owl:Class ;
+                            rdfs:subClassOf :DisjointRoles ,
+                                            :JoinConstraint ;
+                            owl:disjointWith :JoinEqualityConstraint ,
+                                             :JoinSubsetConstraint ;
+                            rdfs:comment """absent 
+absent 
+join-exclusion among four roles in three or four relationships"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#JoinEqualityConstraint
+:JoinEqualityConstraint rdf:type owl:Class ;
+                        rdfs:subClassOf :JoinConstraint ,
+                                        :RoleEquality ;
+                        owl:disjointWith :JoinSubsetConstraint ;
+                        rdfs:comment """absent 
+absent 
+join-equality among four roles in three or four relationships"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#JoinSubsetConstraint
+:JoinSubsetConstraint rdf:type owl:Class ;
+                      rdfs:subClassOf :JoinConstraint ;
+                      rdfs:comment """absent
+absent
+join-subset constraint among four roles in three or four relationships"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#JoiningR
+:JoiningR rdf:type owl:Class ;
+          rdfs:subClassOf :ReifiedNAry ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty [ owl:inverseOf :jo3
+                                           ] ;
+                            owl:someValuesFrom :JoinConstraint
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty [ owl:inverseOf :relj1
+                                           ] ;
+                            owl:someValuesFrom :Relationship
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty [ owl:inverseOf :rolj2
+                                           ] ;
+                            owl:someValuesFrom :Role
+                          ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#LesserThan
+:LesserThan rdf:type owl:Class ;
+            rdfs:subClassOf :Comparison .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#LocalReflexivity
+:LocalReflexivity rdf:type owl:Class ;
+                  rdfs:subClassOf :RelationshipConstraint .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Mandatory
+:Mandatory rdf:type owl:Class ;
+           rdfs:subClassOf :MandatoryConstraint ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :declaredOn ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :Role
+                           ] ;
+           rdfs:comment """mandatory role
+mandatory 
+mandatory"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#MandatoryConstraint
+:MandatoryConstraint rdf:type owl:Class ;
+                     rdfs:subClassOf :Constraint ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :declaredOn ;
+                                       owl:someValuesFrom :Role
+                                     ] ;
+                     rdfs:comment """Not represented, due to OWL limitations:
+'If a Mandatory constraint is declared on two or more Roles, 
+       then those Roles must be contained in distinct Relationships.'"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#MappedTo
+:MappedTo rdf:type owl:Class ;
+          rdfs:subClassOf :Attribute ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :domain ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :ValueType
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :range ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :DataType
+                          ] ;
+          owl:disjointWith :MultivaluedAttribute ;
+          rdfs:comment "This is ORM's hidden attribute, from Value type to Data type"^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#MaximumCardinality
+:MaximumCardinality rdf:type owl:Class ;
+                    rdfs:subClassOf :Abstract ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :propertPartOf ;
+                                      owl:someValuesFrom :CardinalityConstraint
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :hasCValue ;
+                                      owl:someValuesFrom xsd:integer
+                                    ] ;
+                    rdfs:comment "reified and flattened out representation for cardinality.  "^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#MaximumValue
+:MaximumValue rdf:type owl:Class ;
+              rdfs:subClassOf :Abstract ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :propertPartOf ;
+                                owl:someValuesFrom :ValueRange
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasValue ;
+                                owl:someValuesFrom rdfs:Literal
+                              ] ;
+              rdfs:comment "reified and flattened out representation for values.  "^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#MinimumCardinality
+:MinimumCardinality rdf:type owl:Class ;
+                    rdfs:subClassOf :Abstract ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :propertPartOf ;
+                                      owl:someValuesFrom :CardinalityConstraint
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :hasCValue ;
+                                      owl:someValuesFrom xsd:integer
+                                    ] ;
+                    rdfs:comment "reified and flattened out representation for cardinality.  "^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#MinimumValue
+:MinimumValue rdf:type owl:Class ;
+              rdfs:subClassOf :Abstract ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :propertPartOf ;
+                                owl:someValuesFrom :ValueRange
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :hasValue ;
+                                owl:someValuesFrom rdfs:Literal
+                              ] ;
+              rdfs:comment "reified and flattened out representation for values."^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#MultivaluedAttribute
+:MultivaluedAttribute rdf:type owl:Class ;
+                      rdfs:subClassOf :Attribute ;
+                      rdfs:comment """absent (represented differently)
+multivalued attribute 
+absent (represented differently)"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#NestedObjectType
+:NestedObjectType rdf:type owl:Class ;
+                  rdfs:subClassOf :ObjectType ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :objectifies ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :Relationship
+                                  ] ;
+                  rdfs:comment """association class 
+associative entity 
+objectified fact type"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#NotEqual
+:NotEqual rdf:type owl:Class ;
+          rdfs:subClassOf :Comparison .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ObjectType
+:ObjectType rdf:type owl:Class ;
+            rdfs:subClassOf :EntityType ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf :identifies
+                                             ] ;
+                              owl:someValuesFrom :IdentificationConstraint
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf :declaredOn
+                                             ] ;
+                              owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :CompletenessConstraint
+                            ] ;
+            rdfs:comment """class 
+entity type 
+non-lexical object type / entity type
+for Object subtype, there is the naming, respectively:
+subclass  
+subtype 
+subtype"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ObjectTypeCardinality
+:ObjectTypeCardinality rdf:type owl:Class ;
+                       rdfs:subClassOf :CardinalityConstraint ;
+                       rdfs:comment """Object type cardinality constraint in our MM, in the others, respectively: 
+multiplicity constraint; min max
+cardinality constraint; min cardinality, max cardinality 
+frequency (object cardinality) constraint; min cardinality, max cardinality"""^^xsd:string ,
+                                    "for in the relationship"^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Part
+:Part rdf:type owl:Class ;
+      rdfs:subClassOf :PartWhole ,
+                      [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                               owl:onProperty :partPlayer ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :AttributiveProperty
+                                             ]
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty :wholePlayer ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :CompositeAttribute
+                                             ]
+                                           ) ;
+                        rdf:type owl:Class
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :participant ;
+                        owl:maxQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                        owl:onClass :AttributiveProperty
+                      ] ;
+      rdfs:comment "Same representation issues as noted for PartWhole, but then for CompositeAttribute and AttributiveProperty"^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#PartWhole
+:PartWhole rdf:type owl:Class ;
+           rdfs:subClassOf :Relationship ;
+           rdfs:comment "In addition, we want the AttributiveProperty and CompositeAttribute linked to part, but if we add that explicitly, then it would exclude others, and it would contradict the EntityType as domain and range for PartWhole, because AttrubutiveProeprty and EntityType are disjoint. So we put them together in PartWhole"^^xsd:string ,
+                        "We actually want to say that for each PartWhole, there are exactly 2 EntityTypes participating in it, of which exaclty 1 is the partPlayer and exacty one is the wholePlayer, and them together consitute a subset of the participant relation. This cannot be expressed."^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#PurelyReflexive
+:PurelyReflexive rdf:type owl:Class ;
+                 rdfs:subClassOf :LocalReflexivity .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#QualifiedIdentification
+:QualifiedIdentification rdf:type owl:Class ;
+                         rdfs:subClassOf :ExternalIdentification ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :partiallyIdentifies ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :QualifiedRelationship
+                                         ] ;
+                         owl:disjointWith :WeakIdentification ;
+                         rdfs:comment """qualified association 
+absent 
+(limited version of) external uniqueness"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#QualifiedRelationship
+:QualifiedRelationship rdf:type owl:Class ;
+                       rdfs:subClassOf :Relationship ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty [ owl:inverseOf :declaredOn
+                                                        ] ;
+                                         owl:someValuesFrom :Qualifier
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty [ owl:inverseOf :declaredOn
+                                                        ] ;
+                                         owl:maxQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :Qualifier
+                                       ] ;
+                       rdfs:comment """qualified association
+absent
+absent"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Qualifier
+:Qualifier rdf:type owl:Class ;
+           rdfs:subClassOf :EntityType ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasPart ;
+                             owl:someValuesFrom [ rdf:type owl:Class ;
+                                                  owl:unionOf ( :Attribute
+                                                                :DimensionalAttribute
+                                                              )
+                                                ]
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :declaredOn ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass [ rdf:type owl:Class ;
+                                           owl:unionOf ( :QualifiedRelationship
+                                                         :Role
+                                                       )
+                                         ]
+                           ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ReifiedNAry
+:ReifiedNAry rdf:type owl:Class ;
+             rdfs:comment "Separate, just to make clear where they come from. They all have an \"R\" appended in the naming scheme in this OWL file, and their own set of object properties not to be used elsewhere"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Relationship
+:Relationship rdf:type owl:Class ;
+              rdfs:subClassOf :Entity ,
+                              [ rdf:type owl:Class ;
+                                owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                owl:onProperty :rel1 ;
+                                                owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                owl:onClass :ExtUniqueR
+                                              ]
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty :rel1 ;
+                                                owl:qualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                                owl:onClass :ExtUniqueR
+                                              ]
+                                            )
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :contains ;
+                                owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Role
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :participant ;
+                                owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Entity
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :reifiedAs ;
+                                owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :NestedObjectType
+                              ] ;
+              rdfs:comment """association, can be binary according to the MOF 2.4.1, but also >2-ary according to the Superstructure Spec 2.4.1
+relationship, >=2-ary
+atomic/compound fact type, >=1-ary
+For a Sub-relationship, the name is, respectively:
+subsetting or subtyping of association
+subtyping the relationship (not present in all EER variants)
+subset constraint on fact type"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#RelationshipConstraint
+:RelationshipConstraint rdf:type owl:Class ;
+                        rdfs:subClassOf :Constraint ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :first ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :Role
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :participant ;
+                                          owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :Role
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :second ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :Role
+                                        ] ;
+                        rdfs:comment "They're all in ORM, though the refinement on reflexivity is quite new and not all ORM tools have that"@en .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#RelationshipEquality
+:RelationshipEquality rdf:type owl:Class ;
+                      rdfs:subClassOf :EqualityConstraint ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :declaredOn ;
+                                        owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :Relationship
+                                      ] ;
+                      rdfs:comment """absent 
+absent
+equality (on fact types)"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Role
+:Role rdf:type owl:Class ;
+      rdfs:subClassOf :Entity ,
+                      [ rdf:type owl:Class ;
+                        owl:unionOf ( [ rdf:type owl:Restriction ;
+                                        owl:onProperty :role1 ;
+                                        owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :CompoundCardinalityR
+                                      ]
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :role1 ;
+                                        owl:qualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :CompoundCardinalityR
+                                      ]
+                                    )
+                      ] ,
+                      [ rdf:type owl:Class ;
+                        owl:unionOf ( [ rdf:type owl:Restriction ;
+                                        owl:onProperty :role2 ;
+                                        owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :ExtUniqueR
+                                      ]
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :role2 ;
+                                        owl:qualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :ExtUniqueR
+                                      ]
+                                    )
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :linkedTo2 ;
+                        owl:someValuesFrom :RolePlayingR
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty [ owl:inverseOf :contains
+                                       ] ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Relationship
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty [ owl:inverseOf :declaredOn
+                                       ] ;
+                        owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Mandatory
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty [ owl:inverseOf :declaredOn
+                                       ] ;
+                        owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Qualifier
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty [ owl:inverseOf :participant
+                                       ] ;
+                        owl:maxQualifiedCardinality "4"^^xsd:nonNegativeInteger ;
+                        owl:onClass :RelationshipConstraint
+                      ] ;
+      rdfs:comment """association end / member end 
+component of a relationship
+role"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#RoleEquality
+:RoleEquality rdf:type owl:Class ;
+              rdfs:subClassOf :EqualityConstraint ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :declaredOn ;
+                                owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Role
+                              ] ;
+              rdfs:comment """absent
+absent
+equality (on roles)"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#RolePlayingR
+:RolePlayingR rdf:type owl:Class ;
+              rdfs:subClassOf :ReifiedNAry ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf :linkedTo2
+                                               ] ;
+                                owl:someValuesFrom :Role
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf :of3
+                                               ] ;
+                                owl:someValuesFrom :CardinalityConstraint
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf :plays1
+                                               ] ;
+                                owl:someValuesFrom :EntityType
+                              ] .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#RoleValueConstraint
+:RoleValueConstraint rdf:type owl:Class ;
+                     rdfs:subClassOf :ValueConstraint ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :rvc4 ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :ConstrainingValuesRR
+                                     ] ;
+                     owl:disjointWith :ValueTypeConstraint ;
+                     rdfs:comment """absent  
+absent 
+role value constraint (redundant, because one can also model it with a subtype; include it for the time being [provided it does not become too cumbersome])"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#SharedAggregate
+:SharedAggregate rdf:type owl:Class ;
+                 rdfs:subClassOf :PartWhole ,
+                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :partPlayer ;
+                                                          owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                               owl:unionOf ( :DataType
+                                                                                             :ObjectType
+                                                                                           )
+                                                                             ]
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :wholePlayer ;
+                                                          owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                               owl:unionOf ( :DataType
+                                                                                             :ObjectType
+                                                                                           )
+                                                                             ]
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ,
+                                 [ rdf:type owl:Class ;
+                                   owl:unionOf ( [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty :partPlayer ;
+                                                                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                          owl:onClass :DataType
+                                                                        ]
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty :wholePlayer ;
+                                                                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                          owl:onClass :DataType
+                                                                        ]
+                                                                      ) ;
+                                                   rdf:type owl:Class
+                                                 ]
+                                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty :partPlayer ;
+                                                                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                          owl:onClass :ObjectType
+                                                                        ]
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty :wholePlayer ;
+                                                                          owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                          owl:onClass :ObjectType
+                                                                        ]
+                                                                      ) ;
+                                                   rdf:type owl:Class
+                                                 ]
+                                               )
+                                 ] ;
+                 rdfs:comment """shared aggregation 
+absent 
+absent """^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#SingleIdentification
+:SingleIdentification rdf:type owl:Class ;
+                      rdfs:subClassOf :InternalIdentification ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :declaredOn ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass [ rdf:type owl:Class ;
+                                                      owl:unionOf ( :Attribute
+                                                                    :ValueType
+                                                                  )
+                                                    ]
+                                      ] ;
+                      rdfs:comment """alt key mechanism (in  \\cite{UMLODM09}, not in v2.4.1) made mandatory 1:1 
+unary identifier (mandatory 1:1)  
+(simple) reference mode (mandatory 1:1)"""^^xsd:string ,
+                                   """not represented fully:
+'The Single identification has a Mandatory and a 1:1 Cardinality constraint.' """^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#StronglyIntransitive
+:StronglyIntransitive rdf:type owl:Class ;
+                      rdfs:subClassOf :Intransitivity .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#SubsetConstraint
+:SubsetConstraint rdf:type owl:Class ;
+                  rdfs:subClassOf :Constraint ;
+                  rdfs:comment """not named in the MM: Role subset (inherited from the subsumption on Entity), and implcitly present: 
+subsetting of association ends 
+absent 
+subset constraint on role """^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Subsumption
+:Subsumption rdf:type owl:Class ;
+             rdfs:subClassOf :Relationship ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :playsSub ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Entity
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :playsSuper ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Entity
+                             ] ;
+             rdfs:comment """More precisely regarding the sub and super:
+'For each sub participating in a Subsumption, 
+       there must be a matching super and its participating Entity is of the same category as the 
+       Entity participating in the sub.'
+`category' in the textual constraint refers to that a subsumption can be declared among any two  Relationships, between any two Object types etc., but not between, say, an Object type and an Attributive property"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Symmetry
+:Symmetry rdf:type owl:Class ;
+          rdfs:subClassOf :RelationshipConstraint .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#Transitivity
+:Transitivity rdf:type owl:Class ;
+              rdfs:subClassOf :RelationshipConstraint .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#UniquenessConstraint
+:UniquenessConstraint rdf:type owl:Class ;
+                      rdfs:subClassOf :Constraint ;
+                      owl:disjointUnionOf ( :ExternalUniqueness
+                                            :InternalUniqueness
+                                          ) ;
+                      rdfs:comment """absent 
+absent 
+uniqueness constraint"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ValueComparisonConstraint
+:ValueComparisonConstraint rdf:type owl:Class ;
+                           rdfs:subClassOf :Constraint ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :comparisonOperator ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :Comparison
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :first ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :Role
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :hasType ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :DataType
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :participant ;
+                                             owl:qualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :Role
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :second ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :Role
+                                           ] ;
+                           rdfs:comment """absent 
+absent 
+value comparison constraint"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ValueConstraint
+:ValueConstraint rdf:type owl:Class ;
+                 rdfs:subClassOf :Constraint ;
+                 owl:disjointUnionOf ( :AttributeValueConstraint
+                                       :RoleValueConstraint
+                                       :ValueTypeConstraint
+                                     ) .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ValueEnumeration
+:ValueEnumeration rdf:type owl:Class ;
+                  rdfs:subClassOf :Abstract ,
+                                  [ rdf:type owl:Class ;
+                                    owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :ve1 ;
+                                                    owl:someValuesFrom :ConstrainingValuesVR
+                                                  ]
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :ve2 ;
+                                                    owl:someValuesFrom :ConstrainingValuesAR
+                                                  ]
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :ve3 ;
+                                                    owl:someValuesFrom :ConstrainingValuesRR
+                                                  ]
+                                                )
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :partOf ;
+                                    owl:someValuesFrom [ rdf:type owl:Class ;
+                                                         owl:unionOf ( :AttributeValueConstraint
+                                                                       :RoleValueConstraint
+                                                                       :ValueTypeConstraint
+                                                                     )
+                                                       ]
+                                  ] ;
+                  rdfs:comment "reified and flattened out representation for values."^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ValueProperty
+:ValueProperty rdf:type owl:Class ;
+               rdfs:subClassOf :EntityType ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :domain ;
+                                 owl:someValuesFrom :ObjectType
+                               ] ;
+               owl:disjointUnionOf ( :DimensionalValueType
+                                     :ValueType
+                                   ) .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ValueRange
+:ValueRange rdf:type owl:Class ;
+            rdfs:subClassOf :Abstract ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :partOf ;
+                              owl:someValuesFrom [ rdf:type owl:Class ;
+                                                   owl:unionOf ( :RoleValueConstraint
+                                                                 :ValueTypeConstraint
+                                                               )
+                                                 ]
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasType ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :DataType
+                            ] ;
+            rdfs:comment "reified and flattened out representation for values, to go with min nad max values"^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ValueType
+:ValueType rdf:type owl:Class ;
+           rdfs:subClassOf :ValueProperty ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty [ owl:inverseOf :domain
+                                            ] ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :MappedTo
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty [ owl:inverseOf :participant
+                                            ] ;
+                             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :SingleIdentification
+                           ] ;
+           rdfs:comment """absent
+absent
+lexical object type / value type, without dimension"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#ValueTypeConstraint
+:ValueTypeConstraint rdf:type owl:Class ;
+                     rdfs:subClassOf :ValueConstraint ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :vtc4 ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :ConstrainingValuesVR
+                                     ] ;
+                     rdfs:comment """Value specification (see SS fig 7.5) only with optional upper and lower values, but in SS fig 7.13, there's also enumeration) 
+absent 
+value constraint"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#WeakIdentification
+:WeakIdentification rdf:type owl:Class ;
+                    rdfs:subClassOf :ExternalIdentification ,
+                                    [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :declaredOn ;
+                                                             owl:someValuesFrom :AttributiveProperty
+                                                           ]
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :declaredOn ;
+                                                             owl:someValuesFrom :Relationship
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :identifies ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :WeakObjectType
+                                    ] ;
+                    rdfs:comment """Not represented:
+'A Weak identification is a combination of one or more Attributive property of the Weak object type it identifies 
+        together with the Identification constraint of its related 'strong' Object type.'"""^^xsd:string ,
+                                 """absent 
+weak identifier
+(limited version of) external uniqueness"""^^xsd:string .
+
+
+###  http://www.meteck.org/files/ontologies/metamodelCDML.owl#WeakObjectType
+:WeakObjectType rdf:type owl:Class ;
+                rdfs:subClassOf :ObjectType ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty [ owl:inverseOf :identifies
+                                                 ] ;
+                                  owl:someValuesFrom :WeakIdentification
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasStrong ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :ObjectType
+                                ] ;
+                rdfs:comment """absent
+weak entity type
+absent"""^^xsd:string .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Antisymmetry
+                :LocalReflexivity
+                :Symmetry
+                :Transitivity
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AttributiveProperty
+                :PartWhole
+                :Subsumption
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AttributiveProperty
+                :QualifiedRelationship
+                :Subsumption
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :DisjointObjectTypes
+                :DisjointRelationships
+                :DisjointRoles
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :EntityType
+                :Relationship
+                :Role
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Irreflexivity
+                :LocalReflexivity
+                :Symmetry
+                :Transitivity
+              )
+] .
+
+
+###  Generated by the OWL API (version 5.1.0) https://github.com/owlcs/owlapi/
